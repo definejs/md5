@@ -1,5 +1,5 @@
 
-const crypto = require('crypto');
+const crypto = require('crypto');       //node 的内置模块。
 const File = require('@definejs/file');
 
 module.exports = exports = {
