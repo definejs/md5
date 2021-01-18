@@ -1,6 +1,6 @@
 {
   "name": "@definejs/md5",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {},
@@ -9,6 +9,6 @@
   "email": "mictydeng@qq.com",
   "license": "MIT",
   "dependencies": {
-    "@definejs/file": "^0.1.7"
+    "@definejs/file": "^1.0.0"
   }
 }
