@@ -1,6 +1,7 @@
 
+const fs = require('fs');
 const crypto = require('crypto');       //node 的内置模块。
-const File = require('@definejs/file');
+
 
 module.exports = exports = {
     /**
@@ -30,12 +31,44 @@ module.exports = exports = {
 
     /**
     * 读取指定文件的内容并计算 MD5 值。
+    * 已重载 read(file); //使用同步的方式读取文件并计算文件的 md5。 默认为 `utf8` 编码。
+    * 已重载 read(file, fn); //使用异步的方式读取文件并计算文件的 md5。 默认为 `utf8` 编码。
+    * 已重载 read(file, encoding, fn); //使用指定编码的异步方式读取文件并计算文件的 md5。
     */
-    read(file, len) {
-        let content = File.read(file);
-        let md5 = exports.get(content, len);
+    read(file, encoding, fn) {
+        //重载 read(file, fn);
+        if (typeof encoding == 'function') {
+            fn = encoding;
+            encoding = 'utf8';
+        }
 
-        return md5;
+        let hash = crypto.createHash('md5');
+
+        //同步模式。
+        //适用于小文件。 
+        //如果用于大文件，性能会降低，请改用异步模式。
+        if (!fn) {
+            let buffer = fs.readFileSync(file);
+            hash.update(buffer, encoding);
+
+            let md5 = hash.digest('hex');
+            return md5;
+            
+        }
+        
+        //异步模式，适用于大文件。
+        let stream = fs.createReadStream(file);
+
+        stream.on('data', chunk => {
+            hash.update(chunk, encoding);
+        });
+
+        stream.on('end', () => {
+            let md5 = hash.digest('hex');
+            fn(md5);
+        });
+
+
     },
 
 }

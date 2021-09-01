@@ -1,7 +1,7 @@
 {
   "name": "@definejs/md5",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "计算字符串内容或二进制文件的 md5 值。",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
@@ -9,6 +9,6 @@
   "email": "mictydeng@qq.com",
   "license": "MIT",
   "dependencies": {
-    "@definejs/file": "^1.0.0"
+    
   }
 }
